@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL || "http://localhost:3000"}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

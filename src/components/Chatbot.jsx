@@ -35,7 +35,7 @@ const Chatbot = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:3000/api/auth/verify", {
+        const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL || "http://localhost:3000"}/api/auth/verify`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -61,7 +61,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     // Fetch available agents for sidebar
-    fetch("http://localhost:5000/agents")
+            fetch(`${import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000"}/agents`)
       .then(res => res.json())
       .then(setAgents)
       .catch(() => setAgents({}));
@@ -97,7 +97,7 @@ const Chatbot = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/api/upload", {
+              const response = await fetch(`${import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000"}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -146,7 +146,7 @@ const Chatbot = () => {
     setIsThinking(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat", {
+              const response = await fetch(`${import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000"}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
