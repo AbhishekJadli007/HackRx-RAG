@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
+
+/* Define CSS variables based on your tailwind.config.js extend.colors.n */
+:root {
+    --color-1: #AC6AFF;
+    --color-2: #FFC876;
+    --color-3: #FF776F;
+    --color-4: #7ADB78;
+    --color-5: #858DFF;
+    --color-6: #FF98E2;
+
+    --stroke-1: #26242C;
+
+    --n-1: #FFFFFF;
+    --n-2: #CAC6DD;
+    --n-3: #ADA8C3;
+    --n-4: #757185;
+    --n-5: #3F3A52;
+    --n-6: #252134;
+    --n-7: #15131D;
+    --n-8: #0E0C15;
+    --n-9: #474060;
+    --n-10: #43435C;
+    --n-11: #1B1B2E;
+    --n-12: #2E2A41;
+    --n-13: #6C7275;
+
+    /* Font families */
+    --font-sora: "Sora", sans-serif;
+    --font-code: "Source Code Pro", monospace;
+    --font-grotesk: "Space Grotesk", sans-serif;
+    
+    color-scheme: dark;
+}
+
+body {
+    font-family: var(--font-sora), sans-serif;
+    background-color: var(--n-8); /* Equivalent to bg-n-8 */
+    color: var(--n-1); /* Equivalent to text-n-1 */
+    font-size: 1rem; /* Equivalent to text-base */
+    scroll-behavior: smooth;
+}
+
+/* Streamlit specific adjustments */
+.stApp {
+    background-color: var(--n-8);
+    color: var(--n-1);
+}
+
+.css-1d391kg, .css-1qxtbhg { /* Targets Streamlit's main content and sidebar background */
+    background-color: var(--n-8);
+}
+
+.st-emotion-cache-1r6dm7m { /* Targets Streamlit's main content area */
+    background-color: var(--n-8);
+    color: var(--n-1);
+}
+
+.st-emotion-cache-1jmvejs { /* Targets the input text area background */
+    background-color: var(--n-7);
+    color: var(--n-1);
+    border: 1px solid var(--n-6);
+}
+
+.st-emotion-cache-1jmvejs:focus-within { /* Targets the input text area focus state */
+    border-color: var(--color-1); /* Example: use a custom color on focus */
+    box-shadow: 0 0 0 2px var(--color-1);
+}
+
+.stButton>button {
+    background-color: var(--color-1);
+    color: var(--n-1);
+    font-family: var(--font-code);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.05em; /* Adjusted slightly, your .button is wider */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem; /* Example border-radius */
+    transition: background-color 0.2s ease-in-out;
+}
+
+.stButton>button:hover {
+    background-color: var(--color-5); /* Example hover color */
+}
+
+/* Customizing the message bubbles directly for more control */
+.chat-message-bot {
+    background-color: var(--n-7); /* Adjusted from slate-700 to n-7 */
+    color: var(--n-1);
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 0.75rem 1rem; /* px-4 py-3 */
+    max-width: 75%; /* max-w-xl is relative, this is a common equivalent for a fit-content bubble */
+    width: fit-content;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow */
+}
+
+.chat-message-user {
+    background-color: var(--n-6); /* Adjusted from slate-800 to n-6 */
+    color: var(--n-1);
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 0.75rem 1rem; /* px-4 py-3 */
+    max-width: 75%;
+    width: fit-content;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow */
+}
+
+/* Flexbox utilities for message alignment */
+.chat-message-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem; /* gap-4 */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.chat-message-container.user {
+    justify-content: flex-end;
+}
+
+.chat-avatar {
+    flex-shrink: 0;
+}
+
+.chat-avatar img {
+    height: 3rem; /* h-12 */
+    width: 3rem; /* w-12 */
+    border-radius: 9999px; /* rounded-full */
+    object-fit: cover;
+    background-color: var(--n-5); /* bg-gray-700 equivalent for a darker avatar background */
+}
+
+.chat-message-container.user .chat-message-bubble {
+    order: 2;
+}
+
+.chat-message-container.user .chat-avatar {
+    order: 3;
+}
+
+/* Header styles */
+.main-header {
+    font-family: var(--font-sora);
+    font-weight: 600; /* h1 font-semibold */
+    color: var(--n-1);
+    font-size: 2.5rem; /* base h1 font size */
+    line-height: 3.25rem;
+    margin-bottom: 2rem;
+}
+
+/* Spinner styling */
+.stSpinner > div > div {
+    color: var(--color-1) !important;
+}
+
+/* Small text for fetch time */
+.fetch-time {
+    font-size: 0.75rem; /* text-xs */
+    color: var(--n-4); /* text-gray-400 equivalent */
+    margin-top: 0.25rem;
+    text-align: right; /* To align it nicely within the bubble */
+}

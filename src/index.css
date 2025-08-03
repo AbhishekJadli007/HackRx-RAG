@@ -1,0 +1,390 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sora: "Sora", sans-serif;
+  --font-code: "Source Code Pro", monospace;
+  --font-grotesk: "Space Grotesk", sans-serif;
+  color-scheme: dark;
+  --primary-bg: #F8F8F8;
+  --chatbot-body: #F5CFFF;
+  --chat-accent: #C37BCF;
+  --text-dark: #2A2F3B;
+  --bubble-outline: #D5A7E8;
+  --soft-purple: #E8D8F1;
+  --deep-purple: #B06AB4;
+  --white: #FFFFFF;
+  --sidebar-bg: #E9C7F9;         /* Slightly deeper lavender */
+  --text-primary: #2C2C2C;       /* Strong readable gray-black */
+  --text-secondary: #5F5F5F;     /* For less important info */
+  --highlight-bg: #B490E8;       /* For selected chat */
+  --button-bg: #6A5ACD;          /* New chat button */
+  --button-text: #FFFFFF;
+  --upload-border: #8C72AB;
+  --upload-icon: #4B3B67;
+  --accent: #6A5ACD;
+}
+
+* {
+  scroll-behavior: smooth
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-n-8 text-n-1 text-base;
+    font-family: 'Segoe UI', 'Sora', sans-serif;
+  }
+}
+
+/* Glassmorphism and Copilot-style for light mode */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.copilot-bubble {
+  background: var(--white);
+  border-left: 4px solid var(--chat-accent);
+  border-radius: 1.25rem;
+  border: 2px solid var(--bubble-outline);
+  box-shadow: 0 2px 16px 0 rgba(195, 123, 207, 0.07);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.08rem;
+  color: var(--text-dark);
+}
+
+.copilot-sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-primary) !important;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+}
+
+.sidebar h2,
+.sidebar h3,
+.copilot-sidebar h2,
+.copilot-sidebar h3 {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
+
+.new-chat-btn, .copilot-sidebar .bg-indigo-500 {
+  background-color: var(--button-bg) !important;
+  color: var(--button-text) !important;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(106,90,205,0.08);
+}
+
+.upload-box, .copilot-sidebar .border-dashed {
+  border: 2px dashed var(--upload-border) !important;
+  padding: 1rem;
+  background: #f7eaff !important;
+  color: var(--upload-icon) !important;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.conversation-item, .copilot-sidebar .text-gray-600 {
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: var(--text-secondary) !important;
+}
+
+.conversation-item.active, .copilot-sidebar .bg-indigo-100 {
+  background-color: var(--highlight-bg) !important;
+  color: var(--button-text) !important;
+}
+
+.settings, .logout, .copilot-sidebar .text-gray-600 {
+  color: var(--text-primary) !important;
+  font-weight: 500;
+}
+
+.copilot-sidebar .material-icons {
+  color: var(--accent) !important;
+}
+
+.copilot-sidebar .hover\:bg-gray-100:hover {
+  background-color: #e0c3f7 !important;
+}
+
+.copilot-sidebar .hover\:text-gray-900:hover {
+  color: var(--accent) !important;
+}
+
+.copilot-input {
+  background: var(--white);
+  border-radius: 1.25rem;
+  border: 2px solid var(--bubble-outline);
+  box-shadow: 0 2px 8px 0 rgba(195, 123, 207, 0.04);
+  font-size: 1.08rem;
+  color: var(--text-dark);
+}
+
+.copilot-btn {
+  background: linear-gradient(90deg, var(--chat-accent) 0%, var(--deep-purple) 100%);
+  color: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px 0 rgba(195, 123, 207, 0.08);
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.copilot-btn:hover {
+  background: linear-gradient(90deg, var(--deep-purple) 0%, var(--chat-accent) 100%);
+}
+
+.accent-text {
+  color: var(--deep-purple);
+}
+
+/* Dark mode overlays and enhancements */
+.dark-mode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(120deg, rgba(24,28,42,0.7) 0%, rgba(35,41,70,0.7) 100%);
+  pointer-events: none;
+}
+
+.dark-glass {
+  background: rgba(30, 41, 59, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(51,65,85,0.18);
+}
+
+.dark-bubble {
+  background: rgba(60, 80, 180, 0.22);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border-radius: 1.25rem;
+  border: 1.5px solid #3b82f6;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.08rem;
+  color: #fff;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.dark-bubble-user {
+  background: rgba(80, 180, 160, 0.22);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border-radius: 1.25rem;
+  border: 1.5px solid #2dd4bf;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.08rem;
+  color: #fff;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.dark-sidebar {
+  background: rgba(30,41,59,0.85);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+  border-radius: 2rem 0 0 2rem;
+  border: 1px solid #232946;
+  backdrop-filter: blur(12px);
+}
+
+.dark-input {
+  background: rgba(51,65,85,0.85);
+  border-radius: 1.25rem;
+  border: 1px solid #232946;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  font-size: 1.08rem;
+  color: #e2e8f0;
+}
+
+.dark-btn {
+  background: linear-gradient(90deg, #232946 0%, #6e8efb 100%);
+  color: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.dark-btn:hover {
+  background: linear-gradient(90deg, #6e8efb 0%, #232946 100%);
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+.dark-mode .bg-white {
+  background-color: #334155;
+}
+
+.dark-mode .text-gray-800 {
+  color: #e2e8f0;
+}
+
+.dark-mode .text-gray-600 {
+  color: #94a3b8;
+}
+
+.dark-mode .text-gray-500 {
+  color: #cbd5e1;
+}
+
+.dark-mode .text-gray-400 {
+  color: #94a3b8;
+}
+
+.dark-mode .hover\:bg-gray-100:hover {
+  background-color: #475569;
+}
+
+.dark-mode .border-gray-200 {
+  border-color: #475569;
+}
+
+.dark-mode .hover\:text-gray-900:hover {
+  color: #f1f5f9;
+}
+
+.dark-mode .ring-gray-300 {
+  ring-color: #475569;
+}
+
+.dark-mode .focus\:ring-indigo-500:focus {
+  ring-color: #818cf8;
+}
+
+.dark-mode .focus\:border-indigo-500:focus {
+  border-color: #818cf8;
+}
+
+/* Upgrade button styles */
+.upgrade-button {
+  background: linear-gradient(180deg, #4F46E5 0%, #C026D3 100%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Custom border radius utilities */
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.rotate-45 {
+  @apply rotate-[45deg]
+}
+
+.rotate-90 {
+  @apply rotate-[90deg]
+}
+
+.rotate-135 {
+  @apply rotate-[135deg]
+}
+
+.rotate-180 {
+  @apply rotate-[180deg]
+}
+
+.rotate-225 {
+  @apply rotate-[225deg]
+}
+
+.rotate-270 {
+  @apply rotate-[270deg]
+}
+
+.rotate-315 {
+  @apply rotate-[315deg]
+}
+
+.rotate-360 {
+  @apply rotate-[360deg]
+}
+
+.-rotate-45 {
+  @apply rotate-[-45deg]
+}
+
+.-rotate-90 {
+  @apply rotate-[-90deg]
+}
+
+.-rotate-135 {
+  @apply rotate-[-135deg]
+}
+
+.-rotate-180 {
+  @apply rotate-[-180deg]
+}
+
+.-rotate-225 {
+  @apply rotate-[-225deg]
+}
+
+.-rotate-270 {
+  @apply rotate-[-270deg]
+}
+
+.-rotate-315 {
+  @apply rotate-[-315deg]
+}
+
+.-rotate-360 {
+  @apply rotate-[-360deg]
+}
+
+.dark-sidebar-custom {
+  background-color: #181c2a !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+  border-radius: 2rem 0 0 2rem;
+  border: 1px solid #232946;
+  backdrop-filter: blur(12px);
+}
