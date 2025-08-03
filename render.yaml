@@ -2,12 +2,23 @@ services:
   - type: web
     name: neurofetch-auth-server
     env: node
+    rootDir: server
     buildCommand: npm install
-    startCommand: npm run server
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
-        sync: false 
+        sync: false
+
+  - type: web
+    name: neurofetch-chat-server
+    env: docker
+    rootDir: src
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000 
