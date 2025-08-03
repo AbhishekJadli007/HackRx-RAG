@@ -28,6 +28,10 @@ from agents.retrieval_agent import AdaptiveRetrievalAgent
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/healthz')
+def health_check():
+    return jsonify({"status": "healthy"}), 200
+
 # Global variables to store conversation state
 conversation_chain = None
 vectorstore = None
