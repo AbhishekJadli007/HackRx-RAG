@@ -62,11 +62,12 @@ def require_auth(f):
         if not auth_header or not auth_header.startswith('Bearer '):
             return jsonify({'success': False, 'error': 'Authorization header required'}), 401
         
-        # For now, accept any Bearer token (you can add validation later)
+        # For testing purposes, accept any Bearer token
         token = auth_header.split(' ')[1]
         if not token:
             return jsonify({'success': False, 'error': 'Invalid token'}), 401
         
+        # For now, accept any token for testing
         return f(*args, **kwargs)
     decorated_function.__name__ = f.__name__
     return decorated_function
