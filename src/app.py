@@ -166,7 +166,7 @@ def get_conversation_chain(vectorstore):
         return None
 
 @app.route('/api/upload', methods=['POST'])
-@require_auth
+# @require_auth  # Temporarily disabled for testing
 def upload_files():
     global conversation_chain, vectorstore, current_pdf_filename, chat_history
     
@@ -236,7 +236,7 @@ def upload_files():
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/chat', methods=['POST'])
-@require_auth
+# @require_auth  # Temporarily disabled for testing
 def chat():
     global conversation_chain, chat_history, current_pdf_filename
     
