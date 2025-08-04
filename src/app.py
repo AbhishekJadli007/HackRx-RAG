@@ -28,6 +28,10 @@ from agents.retrieval_agent import AdaptiveRetrievalAgent
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def home():
+    return jsonify({"message": "NeuroFetch Flask API is running!", "endpoints": ["/healthz", "/api/chat", "/api/upload", "/agents"]}), 200
+
 @app.route('/healthz')
 def health_check():
     return jsonify({"status": "healthy"}), 200
