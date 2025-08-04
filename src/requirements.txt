@@ -18,3 +18,4 @@ camelot-py
 pdfplumber
 streamlit
 gunicorn
+opencv-python-headless
