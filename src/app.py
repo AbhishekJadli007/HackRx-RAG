@@ -30,7 +30,7 @@ CORS(app)
 
 @app.route('/')
 def home():
-    return jsonify({"message": "NeuroFetch Flask API is running!", "endpoints": ["/healthz", "/api/chat", "/api/upload", "/agents"]}), 200
+    return jsonify({"message": "NeuroFetch Flask API is running!", "endpoints": ["/healthz", "/api/chat", "/api/upload", "/agents", "/hackrx/run"]}), 200
 
 @app.route('/healthz')
 def health_check():
@@ -232,6 +232,60 @@ def upload_files():
         
     except Exception as e:
         print(f"Error in upload: {str(e)}")
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/hackrx/run', methods=['POST'])
+# @require_auth  # Temporarily disabled for testing
+def hackrx_run():
+    try:
+        data = request.get_json()
+        
+        documents = data.get('documents', '')
+        questions = data.get('questions', [])
+        
+        if not documents:
+            return jsonify({'success': False, 'error': 'No documents provided'}), 400
+            
+        if not questions or not isinstance(questions, list):
+            return jsonify({'success': False, 'error': 'No questions provided or invalid format'}), 400
+        
+        # Download and process the document from URL
+        document_text = download_and_process_document(documents)
+        if not document_text:
+            return jsonify({'success': False, 'error': 'Failed to download or process document'}), 500
+        
+        # Create vector store and conversation chain
+        text_chunks = get_text_chunks(document_text)
+        vectorstore = get_vectorstore(text_chunks)
+        
+        if not vectorstore:
+            return jsonify({'success': False, 'error': 'Failed to create vector store'}), 500
+        
+        conversation_chain = get_conversation_chain(vectorstore)
+        if not conversation_chain:
+            return jsonify({'success': False, 'error': 'Failed to create conversation chain'}), 500
+        
+        # Process each question
+        answers = []
+        for question in questions:
+            try:
+                # Generate response using OpenAI
+                response = conversation_chain({'question': question})
+                answer = response['answer']
+                answers.append(answer)
+                
+            except Exception as e:
+                print(f"Error processing question '{question}': {str(e)}")
+                answers.append(f"Error processing question: {str(e)}")
+        
+        return jsonify({
+            'success': True,
+            'answers': answers
+        })
+        
+    except Exception as e:
+        print(f"Error in hackrx_run: {str(e)}")
         traceback.print_exc()
         return jsonify({'success': False, 'error': str(e)}), 500
 
